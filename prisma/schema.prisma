@@ -1,0 +1,68 @@
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Nanomaterial {
+  id                    Int          @id @default(autoincrement())
+  sampleId              Int          @unique
+  name                  String
+  nanoForm              String?
+  particleSize          String?
+  shape                 String?
+  zetaPotential         String?
+  surfaceCoating        String?
+  surfaceArea           String?
+  aggregation           String?
+  aggregationRange      String?
+  solubility            String?
+  exposureRoute         String?
+  cytotoxicity          String?
+  skinIrritation        String?
+  immunoToxicity        String?
+  reproductiveToxicity  String?
+  carcinotoxicity       String?
+  genotoxicity          String?
+  regulatoryRisk        String?
+  regulatoryStatus      String?
+  sccsConclusion        String?
+  primarySource         String?
+  officialDocument      String?
+  doiReference          String?
+  remarks               String?
+  oecdGuidelines        String?
+  fdaRemarks            String?
+  maxConcentration      String?
+  createdAt             DateTime     @default(now())
+  caseStudies           CaseStudy[]
+}
+
+model CaseStudy {
+  id                   Int          @id @default(autoincrement())
+  slNumber             Int
+  exampleProduct       String
+  particleSize         String?
+  shape                String?
+  zetaPotential        String?
+  surfaceCoating       String?
+  surfaceArea          String?
+  aggregation          String?
+  hydroDynamicSize     String?
+  solubility           String?
+  exposureRoute        String?
+  cytotoxicity         String?
+  skinIrritation       String?
+  immunoToxicity       String?
+  reproductiveToxicity String?
+  carcinotoxicity      String?
+  genotoxicity         String?
+  nanomaterialId       Int
+  nanomaterial         Nanomaterial @relation(fields: [nanomaterialId], references: [id])
+  createdAt            DateTime     @default(now())
+}
